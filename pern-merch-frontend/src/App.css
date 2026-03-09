@@ -440,11 +440,92 @@ img { max-width: 100%; display: block; }
 .empty-state p { margin-bottom: 16px; }
 
 /* ── Responsive ── */
+
+/* Hamburger & sidebar hidden on desktop */
+.hamburger { display: none; }
+.sidebar { display: none; }
+.sidebar-overlay { display: none; }
+
 @media (max-width: 768px) {
   .hero h1 { font-size: 64px; letter-spacing: 10px; }
   .hero-subtitle { font-size: 14px; letter-spacing: 3px; }
   .product-detail { grid-template-columns: 1fr; gap: 24px; }
   .cart-item { flex-wrap: wrap; }
-  .navbar-links { gap: 12px; }
   .admin-form-row { flex-direction: column; }
+
+  /* Hide desktop nav links */
+  .navbar-desktop { display: none !important; }
+
+  /* Show hamburger */
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 300;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Sidebar overlay */
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 199;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: -280px;
+    width: 280px;
+    height: 100vh;
+    background: #1a1a1a;
+    border-left: 1px solid var(--border);
+    z-index: 200;
+    transition: right 0.3s ease;
+    padding: 80px 24px 24px;
+  }
+  .sidebar-open {
+    right: 0;
+  }
+  .sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .sidebar-links a {
+    color: var(--text-muted);
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .sidebar-links a:hover { color: var(--text); }
+  .sidebar-links .navbar-user {
+    color: var(--cyan);
+    font-size: 14px;
+    font-weight: 500;
+  }
 }
