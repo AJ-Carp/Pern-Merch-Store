@@ -1,6 +1,6 @@
 # Pern Merch Store — Full-Stack E-Commerce Application
 
-A full-stack e-commerce web application for selling band merchandise (clothing, vinyl, posters, accessories), built with **Spring Boot** on the backend and **React** on the frontend. Features JWT-based authentication, role-based access control, a shopping cart, and order management.
+A full-stack e-commerce web application built for my band **PERN**, designed to sell our merchandise (clothing, vinyl, posters, accessories). Built with **Spring Boot** on the backend and **React** on the frontend, featuring JWT-based authentication, role-based access control, a shopping cart, and order management.
 
 ---
 
