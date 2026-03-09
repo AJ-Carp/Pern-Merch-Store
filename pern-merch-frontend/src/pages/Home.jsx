@@ -21,7 +21,7 @@ export default function Home() {
         <div className="hero-content">
           <h1>PERN</h1>
           <p className="hero-subtitle">Official Merch Store</p>
-          <Link to="/products" className="btn btn-primary btn-lg">Shop Now</Link>
+          <Link to="/products" className="btn btn-shop-now btn-lg">Shop Now</Link>
         </div>
       </section>
 
