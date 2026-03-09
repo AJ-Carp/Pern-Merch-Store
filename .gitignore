@@ -1,0 +1,17 @@
+# Maven build output
+pern-merch-backend/target/
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# Node
+pern-merch-frontend/node_modules/
+
+# Env / secrets
+*.env
+.env
+
+# macOS
+.DS_Store
