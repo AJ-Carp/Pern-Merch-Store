@@ -1,0 +1,51 @@
+---
+title: Merch Shop Database Schema
+---
+erDiagram
+    users {
+        BIGINT id PK
+        VARCHAR username UK "NOT NULL"
+        VARCHAR email UK "NOT NULL"
+        VARCHAR password "NOT NULL"
+        VARCHAR role "NOT NULL (USER, ADMIN)"
+    }
+
+    orders {
+        BIGINT id PK
+        BIGINT user_id FK "NOT NULL"
+        DATETIME orderDate "NOT NULL"
+        DECIMAL totalAmount "NOT NULL"
+        VARCHAR status "NOT NULL (PENDING, CONFIRMED, ...)"
+    }
+
+    products {
+        BIGINT id PK
+        VARCHAR name "NOT NULL"
+        VARCHAR description "max 1000"
+        DECIMAL price "NOT NULL"
+        VARCHAR category "NOT NULL"
+        VARCHAR size "nullable"
+        VARCHAR imageUrl "nullable"
+        INT stockQuantity "NOT NULL"
+    }
+
+    order_items {
+        BIGINT id PK
+        BIGINT order_id FK "NOT NULL"
+        BIGINT product_id FK "NOT NULL"
+        INT quantity "NOT NULL"
+        DECIMAL priceAtPurchase "NOT NULL"
+    }
+
+    cart_items {
+        BIGINT id PK
+        BIGINT user_id FK "NOT NULL"
+        BIGINT product_id FK "NOT NULL"
+        INT quantity "NOT NULL"
+    }
+
+    users ||--o{ orders : "places"
+    orders ||--o{ order_items : "contains"
+    products ||--o{ order_items : "referenced in"
+    products ||--o{ cart_items : "added to"
+    users ||--o{ cart_items : "has"
