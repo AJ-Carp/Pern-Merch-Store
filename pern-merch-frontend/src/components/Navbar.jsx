@@ -12,6 +12,7 @@ export default function Navbar() {
 
   const links = (
     <>
+      <Link to="/" onClick={closeMenu}>Home</Link>
       <Link to="/products" onClick={closeMenu}>Shop</Link>
       {user ? (
         <>
