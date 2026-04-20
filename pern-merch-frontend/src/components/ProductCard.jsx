@@ -10,6 +10,7 @@ export default function ProductCard({ product }) {
         <span className="product-card-category">{product.category}</span>
         <h3>{product.name}</h3>
         <p className="product-card-price">${product.price?.toFixed(2)}</p>
+        {product.stockQuantity === 0 && <span className="out-of-stock-badge">Out of Stock</span>}
       </div>
     </Link>
   );

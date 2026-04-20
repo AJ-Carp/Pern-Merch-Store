@@ -14,6 +14,14 @@ export default function Cart() {
 
   const total = cartItems.reduce((sum, item) => sum + item.productPrice * item.quantity, 0);
 
+  async function handleUpdateQuantity(cartItemId, quantity) {
+    try {
+      await updateQuantity(cartItemId, quantity);
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
   async function handleCheckout() {
     setCheckingOut(true);
     try {
@@ -51,9 +59,9 @@ export default function Cart() {
                   <span className="cart-item-price">${item.productPrice?.toFixed(2)}</span>
                 </div>
                 <div className="cart-item-actions">
-                  <button className="qty-btn" onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                  <button className="qty-btn" onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}>-</button>
                   <span className="qty-value">{item.quantity}</span>
-                  <button className="qty-btn" onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                  <button className="qty-btn" onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)} disabled={item.quantity >= item.stockQuantity}>+</button>
                   <button className="btn btn-danger btn-sm" onClick={() => removeItem(item.id)}>Remove</button>
                 </div>
               </div>

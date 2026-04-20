@@ -19,6 +19,7 @@ public class CartController {
 
     private final CartService cartService;
 
+    // @AuthenticationPrincipal automatically injects the details of the currently logged-in user
     @GetMapping
     public ResponseEntity<List<CartItemDTO>> getCart(@AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(cartService.getCart(userDetails.getUsername()));

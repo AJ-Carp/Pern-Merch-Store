@@ -5,6 +5,7 @@ import com.pern.merch.dto.OrderItemDTO;
 import com.pern.merch.entity.*;
 import com.pern.merch.repository.CartItemRepository;
 import com.pern.merch.repository.OrderRepository;
+import com.pern.merch.repository.ProductRepository;
 import com.pern.merch.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final CartItemRepository cartItemRepository;
+    private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
     @Transactional
@@ -41,15 +43,31 @@ public class OrderService {
                 .build();
 
         for (CartItem ci : cartItems) {
-            BigDecimal lineTotal = ci.getProduct().getPrice()
+            /* Re-fetch the product with a pessimistic lock so no other transaction
+               can modify its stock until this checkout transaction completes. */
+            Product product = productRepository.findByIdForUpdate(ci.getProduct().getId())
+                    .orElseThrow(() -> new RuntimeException("Product no longer exists"));
+
+            if (product.getStockQuantity() < ci.getQuantity()) {
+                throw new RuntimeException("Not enough stock for: " + product.getName());
+            }
+
+            // Decrement stock — JPA dirty checking will flush this update when the transaction commits.
+            product.setStockQuantity(product.getStockQuantity() - ci.getQuantity());
+
+            /* If we fetch an existing entity inside a @Transactional method and 
+               modify any of its fields, JPA automatically issues an UPDATE when the transaction commits (method ends). */
+            // so we dont need to save product
+            
+            BigDecimal lineTotal = product.getPrice()
                     .multiply(BigDecimal.valueOf(ci.getQuantity()));
             total = total.add(lineTotal);
 
             OrderItem oi = OrderItem.builder()
                     .order(order)
-                    .product(ci.getProduct())
+                    .product(product)
                     .quantity(ci.getQuantity())
-                    .priceAtPurchase(ci.getProduct().getPrice())
+                    .priceAtPurchase(product.getPrice())
                     .build();
             order.getItems().add(oi);
         }

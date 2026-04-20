@@ -4,11 +4,27 @@ A full-stack e-commerce web application built for my band **PERN**, designed to 
 
 ---
 
+## Visual Preview
+
+<p align="center">
+	<img src="pern-merch-frontend/Screenshot%202026-04-20%20at%206.36.57%20PM.png" alt="Home page" width="32%" />
+	<img src="pern-merch-frontend/Screenshot%202026-04-20%20at%206.37.15%20PM.png" alt="Sign in screen" width="32%" />
+	<img src="pern-merch-frontend/Screenshot%202026-04-20%20at%206.37.24%20PM.png" alt="Merch catalog screen" width="32%" />
+</p>
+
+The screenshots show the main user flow in the app:
+
+- **Home page** — the landing screen with the hero section, brand identity, and clear navigation into the store.
+- **Sign-in page** — a minimal, dark landing screen with a focused login card, clear form fields, and a direct path to registration for new users.
+- **Merch catalog** — a clean storefront layout with category filters, product cards, pricing, and a consistent visual hierarchy that makes browsing easy.
+
+---
+
 ## What I Built
 
 ### Backend — Spring Boot REST API
 
-The core of this project is a **Spring Boot 3.2.3** REST API serving as the backbone for all e-commerce functionality. The backend is organized into a layered architecture: **controllers → services → repositories → entities**, with DTOs decoupling the API contract from the database models.
+The core of this project is a **Spring Boot 3.2.3** REST API that powers the full shopping flow behind the scenes. The backend follows a layered architecture — **controllers → services → repositories → entities** — and uses DTOs to keep the API contract separate from the database models.
 
 **Entities & Relationships**
 
@@ -53,12 +69,18 @@ The core of this project is a **Spring Boot 3.2.3** REST API serving as the back
 
 ### Frontend — React + Vite SPA
 
-A single-page application handling all user interactions:
+The frontend is a **React + Vite** single-page application that handles the user-facing experience:
 
 - **React Router v6** for client-side routing with protected route wrappers.
 - **Context API** for global state — `AuthContext` (token, role, login/logout) and `CartContext` (cart items, count, CRUD operations).
 - **Pages**: Home (hero + featured products), Products (category filter tabs), Product Detail, Cart (quantity controls + checkout), Order History, Login/Register, Admin panel (product CRUD table).
 - Centralized API module with automatic JWT injection on authenticated requests.
+
+### Visual Notes
+
+- The **sign-in screen** uses a restrained layout so the login form stays centered and easy to scan. The dark theme, compact card, and simple call to action keep the focus on authentication.
+- The **shop page** presents products in a grid with category chips across the top, which makes browsing feel quick and structured instead of cluttered.
+- Product cards use a consistent hierarchy: category label, product name, then price, which keeps the catalog readable even with a large inventory.
 
 ---
 

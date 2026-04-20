@@ -358,6 +358,18 @@ img { max-width: 100%; display: block; }
   color: var(--accent);
 }
 
+.out-of-stock-badge {
+  display: inline-block;
+  background: #ff4444;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 /* ── Product Detail ── */
 .product-detail {
   display: grid;

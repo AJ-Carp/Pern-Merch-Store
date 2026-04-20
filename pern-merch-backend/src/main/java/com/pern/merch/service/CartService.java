@@ -93,6 +93,7 @@ public class CartService {
                 .productPrice(ci.getProduct().getPrice())
                 .size(ci.getProduct().getSize())
                 .quantity(ci.getQuantity())
+                .stockQuantity(ci.getProduct().getStockQuantity())
                 .build();
     }
 }

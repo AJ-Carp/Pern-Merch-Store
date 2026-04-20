@@ -1,38 +1,27 @@
 package com.pern.merch.config;
 
 import com.pern.merch.entity.Product;
-import com.pern.merch.entity.Role;
-import com.pern.merch.entity.User;
 import com.pern.merch.repository.ProductRepository;
-import com.pern.merch.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+// creates sample entities for development only
+
+@Profile("dev")
 @Component
 @RequiredArgsConstructor
+@Order(2)
 public class DataSeeder implements CommandLineRunner {
 
     private final ProductRepository productRepository;
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) {
-        // Create admin user if not exists
-        if (!userRepository.existsByUsername("admin")) {
-            userRepository.save(User.builder()
-                    .username("admin")
-                    .email("admin@pernband.com")
-                    .password(passwordEncoder.encode("admin123"))
-                    .role(Role.ADMIN)
-                    .build());
-        }
-
-        // Seed products if empty
         if (productRepository.count() == 0) {
             productRepository.save(Product.builder()
                     .name("PERN Logo Tee")
@@ -114,7 +103,7 @@ public class DataSeeder implements CommandLineRunner {
                     .stockQuantity(40)
                     .build());
 
-            System.out.println(">>> Seeded 8 products + admin user");
+            System.out.println(">>> Seeded 8 dummy products (dev profile)");
         }
     }
 }
